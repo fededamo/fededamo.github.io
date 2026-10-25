@@ -33,16 +33,26 @@
   home();
   assert(!shell.hasAttribute('data-reading') && selected() === 1, 'Back did not restore menu selection');
   assert(!keypad.inert, 'Returning to the menu did not restore the keypad');
-  icons[2].focus();
-  document.querySelector('[data-phone-direction="down"]').click();
-  assert(selected() === 4, 'Down from the last column must reach the nearest app in the shortened row');
-  document.querySelector('[data-phone-direction="up"]').click();
-  assert(selected() === 1, 'Up must return to the app in the same column');
-  document.querySelector('[data-phone-direction="left"]').click();
-  document.querySelector('[data-phone-direction="down"]').click();
-  assert(selected() === 3, 'D-pad must preserve columns in the app grid');
-  document.querySelector('[data-phone-direction="right"]').click();
-  assert(selected() === 4, 'D-pad must preserve columns in the shortened app grid');
+  const direction = (name) => keypad.querySelector(`[data-phone-direction="${name}"]`).click();
+  for (const name of ['left', 'right', 'up', 'down']) {
+    const start = selected();
+    const visited = new Set();
+    for (let step = 0; step < icons.length; step++) {
+      visited.add(selected());
+      const previous = selected();
+      direction(name);
+      assert(selected() !== previous, `${name}: every press must move the selection`);
+    }
+    assert(visited.size === icons.length && selected() === start, `${name}: repeated presses must reach every icon before returning`);
+  }
+  for (const [index, icon] of icons.entries()) {
+    icon.focus();
+    for (const [first, opposite] of [['up', 'down'], ['down', 'up'], ['left', 'right'], ['right', 'left']]) {
+      direction(first);
+      direction(opposite);
+      assert(selected() === index, `${first}/${opposite}: opposite arrows must restore the starting icon`);
+    }
+  }
   const six = keypad.querySelector('[data-phone-key="6"]');
   assert(!six.disabled && getComputedStyle(six).opacity === '1', 'Key 6 must look like the other numeric keys');
   assert(document.querySelectorAll('.phone-softkeys button').length === 1, 'Phone must expose a single contextual action');

@@ -25,6 +25,13 @@
     }
     const folderBack = getComputedStyle(document.querySelector('#icon-folder path:nth-child(2)')).fill;
     assert(folderBack === color('icon-folder-back') && folderBack !== color('icon-paper'), 'Folder back must be golden, not paper-coloured');
+    const rear = document.querySelector('#icon-folder path').getBBox();
+    const front = document.querySelector('#icon-folder polygon');
+    assert(front && front.points.numberOfItems === 4, 'Folder front must be a four-vertex parallelogram');
+    const [a, b, c, d] = [0, 1, 2, 3].map(index => front.points.getItem(index));
+    assert(a.y === b.y && c.y === d.y && b.x - a.x === c.x - d.x && a.x - d.x === b.x - c.x, 'Folder front sides must be parallel');
+    assert(b.x - a.x === rear.width, 'Folder front and rear must have equal widths');
+    assert(d.x === rear.x && d.y === rear.y + rear.height, 'Folder lower-left vertices must coincide');
     check('body', 'backgroundColor', 'desktop');
     check('#benvenuto .window-content', 'backgroundColor', 'surface');
     check('.welcome-art', 'backgroundColor', 'title');

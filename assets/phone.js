@@ -71,13 +71,8 @@ export function mountPhone({ desktop, mobile, open, home }) {
       }
       return;
     }
-    if (direction === 'up' || direction === 'down') {
-      const rows = Math.ceil(links.length / 3);
-      const row = (Math.floor(selected / 3) + (direction === 'up' ? -1 : 1) + rows) % rows;
-      select(Math.min(row * 3 + selected % 3, links.length - 1), true);
-    } else {
-      select((selected + (direction === 'left' ? -1 : 1) + links.length) % links.length, true);
-    }
+    const offset = { left: -1, right: 1, up: -3, down: 3 }[direction];
+    select((selected + offset + links.length) % links.length, true);
   }
 
   function confirm() {
