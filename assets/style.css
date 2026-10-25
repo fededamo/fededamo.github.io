@@ -20,9 +20,14 @@
   --accent-ink: #3b3027;
   --note: #f3c9a8;
   --note-ink: #493a30;
-  --icon-outline: #51463b;
-  --icon-secondary: #bca78b;
-  --icon-paper: #fffaf0;
+  --icon-outline: #4c443c;
+  --icon-secondary: #9c7a48;
+  --icon-paper: #fff3d3;
+  --icon-metal: #aabac6;
+  --icon-screen: #477f82;
+  --icon-accent: #d9835b;
+  --icon-folder: #edbc57;
+  --icon-folder-back: #ca9139;
   font-family: Tahoma, Verdana, Arial, sans-serif;
   font-synthesis: none;
 }
@@ -46,9 +51,6 @@
   --accent: #e7ad86;
   --accent-ink: #1b2333;
   --note: #dbb28b;
-  --icon-outline: #10182a;
-  --icon-secondary: #6d86b2;
-  --icon-paper: #e0e5ef;
 }
 * { box-sizing: border-box; }
 body { margin: 0; color: var(--ink); background: var(--desktop); font-size: 15px; line-height: 1.55; }
@@ -74,7 +76,7 @@ button:focus-visible { outline-offset: -6px; }
 .desktop-icon span { padding: 2px 5px; max-width: 100%; }
 .desktop-icon:hover span, .desktop-icon:focus-visible span { background: var(--selection); color: var(--title-ink); }
 .desktop-icon:active .pixel-icon { transform: translate(1px, 1px); }
-.desktop-note, .desktop-hint { display: none; }
+.desktop-note { display: none; }
 .window { position: relative; container-type: inline-size; background: var(--chrome); border: 2px solid; border-color: var(--edge-light) var(--edge-deep) var(--edge-deep) var(--edge-light); padding: 3px; margin: 20px auto; max-width: 850px; box-shadow: inset -1px -1px var(--edge-dark); }
 .titlebar { min-height: 36px; background: var(--title); color: var(--title-ink); display: flex; align-items: center; justify-content: space-between; padding: 3px 4px 3px 7px; gap: 8px; }
 .titlebar h2 { display: flex; align-items: center; gap: 7px; font-size: 14px; line-height: 1.2; margin: 0; min-width: 0; }
@@ -159,7 +161,6 @@ dd { margin: 0; color: var(--muted); }
 .desktop-note p { margin: 10px 0 20px; }
 .note-signature { font-size: 11px; }
 .note-pin { position: absolute; width: 30px; height: 9px; background: #ffffff80; top: -4px; left: calc(50% - 15px); }
-[data-desktop-ready] .desktop-hint { display: block; position: absolute; bottom: 17px; left: 28px; max-width: calc(100% - 56px); color: var(--desktop-ink); font-size: 12px; margin: 0; opacity: .9; }
 [data-desktop-ready] .window { position: absolute; display: flex; flex-direction: column; max-width: none; margin: 0; min-width: 340px; min-height: min(290px, 100%); box-shadow: 3px 3px 0 #0004, inset -1px -1px var(--edge-dark); }
 [data-desktop-ready] .window:not([data-active]) .titlebar { background: var(--inactive-title); }
 [data-desktop-ready] .titlebar { cursor: move; user-select: none; touch-action: none; flex-shrink: 0; }

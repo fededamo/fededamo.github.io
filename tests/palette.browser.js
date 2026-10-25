@@ -19,6 +19,12 @@
     return rgb.reduce((sum, v, index) => sum + [0.2126, 0.7152, 0.0722][index] * (v <= 0.04045 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4), 0);
   };
   try {
+    const iconColours = ['icon-metal', 'icon-screen', 'icon-accent', 'icon-folder', 'icon-folder-back'].map(color);
+    for (const background of ['desktop', 'chrome', 'surface', 'title', 'accent']) {
+      assert(!iconColours.includes(color(background)), `${theme}: icon colours blend into --${background}`);
+    }
+    const folderBack = getComputedStyle(document.querySelector('#icon-folder path:nth-child(2)')).fill;
+    assert(folderBack === color('icon-folder-back') && folderBack !== color('icon-paper'), 'Folder back must be golden, not paper-coloured');
     check('body', 'backgroundColor', 'desktop');
     check('#benvenuto .window-content', 'backgroundColor', 'surface');
     check('.welcome-art', 'backgroundColor', 'title');

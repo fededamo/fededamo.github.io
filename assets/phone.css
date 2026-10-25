@@ -32,7 +32,7 @@
   .phone-screen .desktop-icon:hover span, .phone-screen .desktop-icon:focus-visible span { background: none; color: inherit; }
   .phone-screen .desktop-icon[data-phone-selected] { background: var(--selection); border-color: var(--edge-light); color: var(--title-ink); }
   .phone-shortcut { display: block; position: absolute; top: 3px; right: 4px; font-size: 11px; line-height: 1; opacity: .85; }
-  [data-desktop-ready] .phone-screen .wallpaper, [data-desktop-ready] .phone-screen .desktop-note, [data-desktop-ready] .phone-screen .desktop-hint { display: none; }
+  [data-desktop-ready] .phone-screen .wallpaper, [data-desktop-ready] .phone-screen .desktop-note { display: none; }
   [data-desktop-ready] .phone-softkeys { display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; min-height: 35px; background: var(--chrome); color: var(--ink); border-top: 1px solid var(--edge-dark); }
   .phone-softkey { min-height: 35px; min-width: 61px; padding: 3px 8px; font-size: 11px; color: inherit; border: 0; background: none; }
   .phone-softkey:not(:disabled):hover { text-decoration: underline; }
