@@ -8,10 +8,12 @@
     "build": "vite build",
     "preview": "vite preview --host 127.0.0.1",
     "test": "npm run test:unit && npm run test:browser",
+    "test:setup": "agent-browser install",
     "test:unit": "node --test --test-isolation=none tests/*.test.js && python3 -m unittest discover -s tests -v",
     "test:browser": "npm run build && node tests/run-browser.js"
   },
   "devDependencies": {
+    "agent-browser": "0.39.1",
     "vite": "^8.3.5"
   }
 }

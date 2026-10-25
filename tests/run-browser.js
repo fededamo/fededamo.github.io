@@ -28,6 +28,17 @@ try {
         await browser(['open', url + path]);
         console.log(await testPhoneTouch(browser));
       }
+      if (width === 390 && height === 844) {
+        await browser(['open', url + path + '#progetti']);
+        for (const [rotatedWidth, rotatedHeight] of [[844, 390], [390, 844]]) {
+          await browser(['set', 'viewport', String(rotatedWidth), String(rotatedHeight)]);
+          console.log(await browser(['eval', `(() => {
+            if (document.querySelector('[data-active]')?.id !== 'progetti' || location.hash !== '#progetti') throw Error('Rotation must preserve the open section and its URL');
+            if (matchMedia('(max-width: 700px)').matches && !document.querySelector('[data-phone]').hasAttribute('data-reading')) throw Error('Portrait mode must keep the section open');
+            return 'PASS: rotation preserves the open section';
+          })()`]));
+        }
+      }
       if (width === 1440 || (width === 390 && height > 600)) {
         await browser(['open', url + path]);
         console.log(await browser(['eval', '--stdin'], await readFile(`tests/${width === 1440 ? 'desktop' : 'phone'}.browser.js`, 'utf8')));

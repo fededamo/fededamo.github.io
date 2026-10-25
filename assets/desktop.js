@@ -233,10 +233,7 @@ const phone = mountPhone({
 window.addEventListener('popstate', followHash);
 window.addEventListener('hashchange', followHash);
 window.addEventListener('resize', () => { gesture = null; sync(); });
-mobile.addEventListener('change', () => {
-  if (mobile.matches) showDesktopView(false);
-  else sync();
-});
+mobile.addEventListener('change', sync);
 
 for (const app of apps.values()) app.element.setAttribute('role', 'dialog');
 start.hidden = false;

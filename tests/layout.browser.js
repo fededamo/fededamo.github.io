@@ -51,6 +51,14 @@
       visible(link);
     }
     document.querySelector('[data-start]').click();
+    const icons = document.querySelector('.desktop-icons');
+    assert(icons.getBoundingClientRect().bottom <= desktop.getBoundingClientRect().bottom, 'Desktop icons must stay inside the work area');
+    for (const icon of icons.querySelectorAll('[data-open]')) {
+      icon.focus();
+      await settle();
+      visible(icon);
+      assert(desktop.scrollTop === 0, 'Reaching an icon must not scroll the whole desktop');
+    }
   }
   assert(document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight, 'Page overflows viewport');
   return `PASS: visible controls and layout at ${innerWidth}×${innerHeight}`;
