@@ -3,7 +3,6 @@ import { mountPhone } from './phone.js';
 const desktop = document.querySelector('.desktop');
 const start = document.querySelector('[data-start]');
 const menu = document.querySelector('#start-menu');
-const showDesktop = document.querySelector('[data-show-desktop]');
 const mobile = matchMedia('(max-width: 700px)');
 const apps = new Map([...desktop.querySelectorAll('[data-window]')].map((element) => [element.id, {
   element,
@@ -137,9 +136,6 @@ start.addEventListener('click', () => {
   start.setAttribute('aria-expanded', String(!menu.hidden));
   if (!menu.hidden) menu.querySelector('a').focus();
 });
-showDesktop.addEventListener('click', () => {
-  showDesktopView();
-});
 
 desktop.addEventListener('focusin', (event) => {
   const element = event.target.closest('[data-window]');
@@ -244,7 +240,6 @@ mobile.addEventListener('change', () => {
 
 for (const app of apps.values()) app.element.setAttribute('role', 'dialog');
 start.hidden = false;
-showDesktop.hidden = false;
 document.documentElement.setAttribute('data-desktop-ready', '');
 followHash();
 const clock = document.querySelector('[data-clock]');

@@ -10,6 +10,7 @@
   assert(document.documentElement.hasAttribute('data-desktop-ready'), 'Desktop did not initialize');
   assert(active('benvenuto'), 'Welcome must be open initially');
   assert(!document.querySelector('[data-task="benvenuto"]'), 'Welcome must not clutter the taskbar');
+  assert(!document.querySelector('[data-show-desktop]'), 'The taskbar must not contain a permanent computer button');
   assert([...document.querySelectorAll('h1')].filter((heading) => heading.getClientRects().length).length === 1, 'The desktop needs one visible primary heading');
   launch('progetti');
   launch('profilo');
@@ -35,8 +36,9 @@
   action('profilo', 'close');
   assert(app('profilo').hidden && document.querySelector('[data-task="profilo"]').hidden, 'Close did not remove the task');
   assert(active('progetti'), 'Closing the active window did not focus the previous window');
-  document.querySelector('[data-show-desktop]').click();
-  assert([...document.querySelectorAll('[data-window]')].every((window) => window.hidden), 'Show desktop did not minimize all windows');
+  action('progetti', 'minimize');
+  action('benvenuto', 'minimize');
+  assert([...document.querySelectorAll('[data-window]')].every((window) => window.hidden), 'Minimizing the open windows must reveal the desktop');
   assert(!document.querySelector('.desktop-icons').inert, 'Desktop icons did not become available again');
   const start = document.querySelector('[data-start]');
   start.click();

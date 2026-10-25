@@ -125,7 +125,6 @@ dd { margin: 0; color: var(--muted); }
 .taskbar { min-height: 54px; background: var(--chrome); border-top: 2px solid var(--edge-light); display: flex; gap: 7px; padding: 4px 7px; align-items: center; }
 .taskbar .pixel-icon { width: 24px; height: 24px; }
 .start-button { padding: 4px 8px; gap: 5px; font-size: 15px; min-height: 42px; }
-.show-desktop { padding: 5px; min-width: 38px; min-height: 40px; margin-right: 3px; }
 .tasks { display: flex; align-items: center; flex: 1; gap: 5px; min-width: 0; overflow-x: auto; }
 .task-button { padding: 5px 10px; min-height: 39px; min-width: 40px; max-width: 170px; flex: 0 1 170px; justify-content: flex-start; gap: 7px; font-size: 12px; white-space: nowrap; }
 .task-button span { overflow: hidden; text-overflow: ellipsis; }
@@ -226,7 +225,6 @@ dd { margin: 0; color: var(--muted); }
   .taskbar { gap: 4px; padding: 4px; }
   .start-button { padding: 5px; font-size: 13px; gap: 3px; }
   .start-button .pixel-icon { width: 22px; }
-  .show-desktop { margin: 0; min-width: 34px; }
   .task-button { flex: 0 0 36px; padding: 4px; justify-content: center; }
   .task-button span { display: none; }
   .tray { gap: 7px; padding: 0 6px; }

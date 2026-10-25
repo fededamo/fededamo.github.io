@@ -74,8 +74,7 @@ export function mountPhone({ desktop, mobile, open, home }) {
     if (direction === 'up' || direction === 'down') {
       const rows = Math.ceil(links.length / 3);
       const row = (Math.floor(selected / 3) + (direction === 'up' ? -1 : 1) + rows) % rows;
-      const next = row * 3 + selected % 3;
-      if (next < links.length) select(next, true);
+      select(Math.min(row * 3 + selected % 3, links.length - 1), true);
     } else {
       select((selected + (direction === 'left' ? -1 : 1) + links.length) % links.length, true);
     }

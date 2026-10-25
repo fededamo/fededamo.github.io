@@ -35,9 +35,13 @@
   assert(!keypad.inert, 'Returning to the menu did not restore the keypad');
   icons[2].focus();
   document.querySelector('[data-phone-direction="down"]').click();
-  assert(selected() === 2, 'D-pad must not jump columns into an empty grid cell');
+  assert(selected() === 4, 'Down from the last column must reach the nearest app in the shortened row');
+  document.querySelector('[data-phone-direction="up"]').click();
+  assert(selected() === 1, 'Up must return to the app in the same column');
   document.querySelector('[data-phone-direction="left"]').click();
   document.querySelector('[data-phone-direction="down"]').click();
+  assert(selected() === 3, 'D-pad must preserve columns in the app grid');
+  document.querySelector('[data-phone-direction="right"]').click();
   assert(selected() === 4, 'D-pad must preserve columns in the shortened app grid');
   const six = keypad.querySelector('[data-phone-key="6"]');
   assert(!six.disabled && getComputedStyle(six).opacity === '1', 'Key 6 must look like the other numeric keys');
