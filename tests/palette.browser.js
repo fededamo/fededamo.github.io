@@ -46,6 +46,8 @@
       assert(ratio >= 4.5, `${theme}: --${foreground} on --${background} has insufficient contrast (${ratio.toFixed(2)})`);
       minimum = Math.min(minimum, ratio);
     }
+    const [low, high] = [luminance(color('wallpaper')), luminance(color('desktop'))].sort((a, b) => a - b);
+    assert((high + 0.05) / (low + 0.05) >= 3, `${theme}: large wallpaper text has insufficient contrast`);
     if (theme === 'light') {
       for (const role of ['desktop', 'chrome', 'surface', 'title', 'selection']) {
         const [r, g, b] = color(role).match(/\d+/g).slice(0, 3).map(Number);

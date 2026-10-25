@@ -11,7 +11,7 @@
   }
   [data-desktop-ready] .phone-top { display: flex; flex-direction: column; align-items: center; justify-content: space-between; height: 45px; padding: 1px 0 8px; flex-shrink: 0; color: var(--muted); }
   .phone-speaker { width: 63px; height: 6px; border-radius: 5px; background: var(--edge-deep); border-bottom: 1px solid var(--edge-light); }
-  .phone-top > span { font-size: 11px; font-weight: bold; letter-spacing: 2px; }
+  .phone-top > span { font-size: 11px; font-weight: bold; letter-spacing: 1.4px; }
   .phone-top b { font-weight: normal; font-style: italic; letter-spacing: .3px; margin-left: 4px; }
   [data-desktop-ready] .phone-screen { display: flex; flex-direction: column; flex: 1; min-height: 0; background: var(--surface); border: 5px solid var(--edge-deep); border-radius: 6px; overflow: hidden; }
   [data-desktop-ready] .phone-status { display: flex; align-items: center; justify-content: space-between; padding: 0 7px; min-height: 31px; flex-shrink: 0; background: var(--chrome); color: var(--ink); border-bottom: 1px solid var(--edge-dark); }
@@ -23,11 +23,11 @@
   .phone-status .languages a { color: inherit; }
   .phone-status [data-clock] { display: inline; font-size: 11px; min-width: 32px; }
   [data-desktop-ready] .phone-screen .desktop { height: auto; min-height: 0; flex: 1; overflow-y: auto; overscroll-behavior: contain; background: var(--surface); }
-  [data-desktop-ready] .phone-home { display: block; padding: 10px 12px 8px; }
+  [data-desktop-ready] .phone-home { display: block; padding: 14px 12px 10px; }
   .phone-home h1 { font-size: 22px; line-height: 1.15; margin: 0; letter-spacing: -.8px; }
   [data-desktop-ready] .phone-screen .desktop-icons { position: static; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; transform: none; padding: 5px 9px 12px; width: 100%; }
-  .phone-screen .desktop-icon { position: relative; display: flex; width: auto; min-height: 79px; padding: 7px 2px 5px; gap: 3px; border: 1px solid transparent; color: var(--ink); font-size: 11px; line-height: 1.2; border-radius: 3px; }
-  .phone-screen .desktop-icon > .pixel-icon { width: 36px; height: 36px; }
+  .phone-screen .desktop-icon { position: relative; display: flex; width: auto; min-height: 84px; padding: 9px 2px 7px; gap: 5px; border: 1px solid transparent; color: var(--ink); font-size: 12px; line-height: 1.2; border-radius: 3px; }
+  .phone-screen .desktop-icon > .pixel-icon { width: 40px; height: 40px; }
   .phone-screen .desktop-icon > span:not(.phone-shortcut) { padding: 0 1px; }
   .phone-screen .desktop-icon:hover span, .phone-screen .desktop-icon:focus-visible span { background: none; color: inherit; }
   .phone-screen .desktop-icon[data-phone-selected] { background: var(--selection); border-color: var(--edge-light); color: var(--title-ink); }
@@ -48,7 +48,7 @@
   [data-phone-direction='down'] { grid-column: 2; grid-row: 3; border-radius: 0 0 9px 9px; }
   .phone-dpad [data-phone-confirm] { grid-column: 2; grid-row: 2; background: var(--accent); color: var(--accent-ink); border: 3px solid; border-color: var(--edge-light) var(--edge-dark) var(--edge-dark) var(--edge-light); font-size: 13px; }
   .phone-number-keys { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 5px 9px; margin-top: 8px; }
-  .phone-number-keys button { display: flex; align-items: center; justify-content: center; gap: 7px; height: 38px; padding: 0 5px; background: var(--chrome); color: var(--ink); border: 2px solid; border-color: var(--edge-light) var(--edge-dark) var(--edge-deep) var(--edge-light); border-radius: 10px 10px 15px 15px; box-shadow: 0 2px 0 var(--edge-deep); }
+  .phone-number-keys button { display: flex; align-items: center; justify-content: center; gap: 7px; height: 38px; padding: 0 5px; background: var(--chrome); color: var(--ink); border: 2px solid; border-color: var(--edge-light) var(--edge-dark) var(--edge-deep) var(--edge-light); border-radius: 7px 7px 11px 11px; box-shadow: 0 2px 0 var(--edge-deep); }
   .phone-number-keys strong { font-size: 20px; line-height: 1; font-weight: normal; }
   .phone-number-keys span { font-size: 11px; letter-spacing: .3px; min-width: 17px; }
   .phone-keypad button:not(:disabled):active { transform: translateY(2px); box-shadow: none; }
@@ -75,6 +75,8 @@
 @media (max-width: 700px) and (max-height: 760px) {
   [data-desktop-ready] .phone-top { height: 32px; }
   [data-desktop-ready] .phone-home { padding: 6px 12px 4px; }
+  .phone-screen .desktop-icon { min-height: 79px; padding: 7px 2px 5px; gap: 3px; font-size: 11px; }
+  .phone-screen .desktop-icon > .pixel-icon { width: 36px; height: 36px; }
   .phone-navigation { height: 90px; }
   .phone-dpad { grid-template-columns: repeat(3, 30px); grid-template-rows: repeat(3, 30px); }
   .phone-number-keys { gap: 3px 9px; margin-top: 6px; }
