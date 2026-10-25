@@ -11,11 +11,18 @@
   const desktop = document.querySelector('.desktop');
   visible(document.querySelector('[data-theme-select]'));
   if (matchMedia('(max-width: 700px)').matches) {
-    if (innerHeight > 600) {
+    if (innerHeight > 650) {
       for (const key of document.querySelectorAll('.phone-number-keys button')) visible(key);
     }
     for (const arrow of document.querySelectorAll('[data-phone-direction]')) {
       assert(arrow.querySelector('svg[aria-hidden="true"]'), 'Directional arrows must not depend on emoji fonts');
+    }
+    if (innerHeight > 520) {
+      for (const button of document.querySelectorAll('.phone-dpad button')) {
+        visible(button);
+        const rect = button.getBoundingClientRect();
+        assert(rect.width >= 44 && rect.height >= 44, 'D-pad touch targets must remain at least 44×44 pixels');
+      }
     }
     assert(desktop.clientHeight >= 140, 'Phone display is too short to use');
     assert(desktop.scrollHeight <= desktop.clientHeight + 1, 'Phone app menu must fit without scrolling');

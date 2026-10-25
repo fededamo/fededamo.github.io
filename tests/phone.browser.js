@@ -99,5 +99,5 @@
   const languages = document.querySelector('.phone-status .languages a');
   assert(languages && languages.href !== location.href, 'Language switching is not reachable in the phone');
   assert(getComputedStyle(document.querySelector('.taskbar')).display === 'none', 'Desktop taskbar leaked into the phone');
-  return 'PASS: five-app menu, incomplete-grid navigation, D-pad, 1–5 shortcuts, reading, history, theme, focus and overflow';
+  return 'PASS: five-app menu, circular arrow navigation, D-pad, 1–5 shortcuts, reading, history, theme, focus and overflow';
 })();

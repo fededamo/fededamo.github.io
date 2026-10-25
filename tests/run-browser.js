@@ -1,6 +1,7 @@
 import { spawn } from 'node:child_process';
 import { readFile } from 'node:fs/promises';
 import { preview } from 'vite';
+import { testPhoneTouch } from './phone-touch.js';
 
 const session = `portfolio-test-${process.pid}`;
 function browser(args, input) {
@@ -18,11 +19,15 @@ function browser(args, input) {
 const server = await preview({ preview: { host: '127.0.0.1', port: 0, open: false } });
 try {
   const url = `http://127.0.0.1:${server.httpServer.address().port}`;
-  for (const [width, height] of [[1440, 900], [844, 320], [701, 600], [700, 600], [390, 844], [568, 320], [320, 568], [320, 320], [375, 667], [402, 690], [320, 601], [360, 720], [360, 721], [390, 760], [390, 761], [390, 520], [390, 521]]) {
+  for (const [width, height] of [[1440, 900], [844, 320], [701, 600], [700, 600], [390, 844], [568, 320], [320, 568], [320, 320], [375, 667], [402, 690], [320, 601], [360, 720], [360, 721], [390, 760], [390, 761], [390, 520], [390, 521], [320, 650], [320, 651], [390, 700]]) {
     await browser(['set', 'viewport', String(width), String(height)]);
     for (const path of ['/', '/en/']) {
       await browser(['open', url + path]);
       console.log(path, await browser(['eval', '--stdin'], await readFile('tests/layout.browser.js', 'utf8')));
+      if (width === 390 && [700, 844].includes(height)) {
+        await browser(['open', url + path]);
+        console.log(await testPhoneTouch(browser));
+      }
       if (width === 1440 || (width === 390 && height > 600)) {
         await browser(['open', url + path]);
         console.log(await browser(['eval', '--stdin'], await readFile(`tests/${width === 1440 ? 'desktop' : 'phone'}.browser.js`, 'utf8')));

@@ -71,8 +71,8 @@ export function mountPhone({ desktop, mobile, open, home }) {
       }
       return;
     }
-    const offset = { left: -1, right: 1, up: -3, down: 3 }[direction];
-    select((selected + offset + links.length) % links.length, true);
+    const step = direction === 'left' || direction === 'up' ? -1 : 1;
+    select((selected + step + links.length) % links.length, true);
   }
 
   function confirm() {
