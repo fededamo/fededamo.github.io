@@ -18,6 +18,19 @@
   const softkey = document.querySelector('.phone-softkey');
   const openLabel = document.documentElement.lang === 'en' ? 'Open' : 'Apri';
   assert(softkey.textContent === openLabel, 'The menu action must say Open');
+  for (const control of [document.querySelector('.languages a'), softkey, document.querySelector('[data-theme-select]')]) {
+    control.focus();
+    const shortcut = new KeyboardEvent('keydown', { key: '3', bubbles: true, cancelable: true });
+    control.dispatchEvent(shortcut);
+    assert(!shortcut.defaultPrevented && !shell.hasAttribute('data-reading'), 'Numeric shortcuts must not activate outside the app menu and keypad');
+  }
+  for (const control of [icons[0], keypad.querySelector('[data-phone-key="1"]')]) {
+    control.focus();
+    const shortcut = new KeyboardEvent('keydown', { key: '1', bubbles: true, cancelable: true });
+    control.dispatchEvent(shortcut);
+    assert(shortcut.defaultPrevented && active('benvenuto'), 'Numeric shortcuts must work while the app menu or keypad has focus');
+    home();
+  }
   softkey.click();
   assert(active('benvenuto') && softkey.textContent === 'Menu', 'The contextual action must open an app then offer Menu');
   home();
@@ -74,8 +87,11 @@
   document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown', bubbles: true }));
   await new Promise(requestAnimationFrame);
   assert(content.scrollTop > 0, 'D-pad keyboard equivalent did not scroll long content');
-  document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: '7', bubbles: true }));
-  assert(content.scrollTop === 0, 'Numeric scroll-up shortcut failed');
+  const shortcut = new KeyboardEvent('keydown', { key: '7', bubbles: true, cancelable: true });
+  document.activeElement.dispatchEvent(shortcut);
+  assert(!shortcut.defaultPrevented && content.scrollTop > 0, 'Reading must not activate numeric shortcuts outside the menu and keypad');
+  document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowUp', bubbles: true }));
+  assert(content.scrollTop === 0, 'Arrow-up scrolling failed');
   fixture.remove();
   document.activeElement.dispatchEvent(new KeyboardEvent('keydown', { key: 'Escape', bubbles: true }));
   assert(!shell.hasAttribute('data-reading'), 'Escape did not return to the phone menu');
@@ -93,11 +109,11 @@
   assert(active('progetti') && document.activeElement === document.getElementById('progetti'), 'Browser Back did not restore the app and focus');
   home();
   key('4');
-  assert(document.querySelector('#curriculum button[disabled]'), 'Missing CV must remain unavailable');
+  assert(active('curriculum'), 'The résumé shortcut must open its window');
   home();
   assert(document.documentElement.scrollWidth <= innerWidth && document.documentElement.scrollHeight <= innerHeight, 'Phone shell overflows the viewport');
   const languages = document.querySelector('.phone-status .languages a');
   assert(languages && languages.href !== location.href, 'Language switching is not reachable in the phone');
   assert(getComputedStyle(document.querySelector('.taskbar')).display === 'none', 'Desktop taskbar leaked into the phone');
-  return 'PASS: five-app menu, circular arrow navigation, D-pad, 1–5 shortcuts, reading, history, theme, focus and overflow';
+  return 'PASS: five-app menu, circular arrow navigation, D-pad, scoped numeric shortcuts, reading, history, theme, focus and overflow';
 })();

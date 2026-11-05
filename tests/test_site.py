@@ -20,6 +20,14 @@ class Page(HTMLParser):
 
 
 class SiteTests(unittest.TestCase):
+    def test_every_window_has_a_taskbar_button(self):
+        for relative in ("index.html", "en/index.html"):
+            with self.subTest(page=relative):
+                page = Page(ROOT / relative)
+                windows = {attrs["id"] for _, attrs in page.elements if "data-window" in attrs}
+                tasks = [attrs["data-task"] for _, attrs in page.elements if "data-task" in attrs]
+                self.assertCountEqual(tasks, windows)
+
     def test_languages_sections_and_local_links(self):
         for relative, language in (("index.html", "it"), ("en/index.html", "en")):
             with self.subTest(page=relative):

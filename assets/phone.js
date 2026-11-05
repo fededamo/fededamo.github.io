@@ -120,7 +120,7 @@ export function mountPhone({ desktop, mobile, open, home }) {
       event.preventDefault();
       event.stopPropagation();
       move(event.key.slice(5).toLowerCase());
-    } else if (/^[0-9*#]$/.test(event.key)) {
+    } else if (/^[0-9*#]$/.test(event.key) && event.target.closest('.desktop-icons, .phone-keypad')) {
       event.preventDefault();
       event.stopPropagation();
       key(event.key);

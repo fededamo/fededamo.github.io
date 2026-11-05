@@ -52,6 +52,16 @@
       check('.taskbar', 'backgroundColor', 'chrome');
       check('#benvenuto .titlebar', 'backgroundColor', 'title');
     }
+    const indicator = document.querySelector(phone ? '.desktop-icon[data-phone-selected]' : '#benvenuto .resize-grip');
+    if (phone) {
+      indicator.focus();
+      assert(indicator.matches(':focus-visible'), 'Phone menu must show a keyboard focus indicator');
+    }
+    const indicatorColor = phone ? getComputedStyle(indicator).outlineColor : getComputedStyle(indicator, '::after').color;
+    const background = getComputedStyle(document.querySelector(phone ? '.desktop' : '#benvenuto')).backgroundColor;
+    const [indicatorLow, indicatorHigh] = [luminance(indicatorColor), luminance(background)].sort((a, b) => a - b);
+    const indicatorContrast = (indicatorHigh + 0.05) / (indicatorLow + 0.05);
+    assert(indicatorContrast >= 3, `${theme}: ${phone ? 'phone menu focus' : 'resize grip'} has insufficient contrast (${indicatorContrast.toFixed(2)})`);
     let minimum = Infinity;
     for (const [foreground, background] of [['ink', 'surface'], ['ink', 'chrome'], ['muted', 'surface'], ['muted', 'chrome'], ['title-ink', 'title'], ['title-ink', 'inactive-title'], ['title-ink', 'selection'], ['link', 'surface'], ['accent-ink', 'accent'], ['desktop-ink', 'desktop']]) {
       const [a, b] = [luminance(color(foreground)), luminance(color(background))].sort((a, b) => a - b);
@@ -67,7 +77,7 @@
         assert(!(b > r + 12 && b > g + 8), `Light theme unexpectedly retains blue in --${role}`);
       }
     }
-    return `PASS: ${theme}/${phone ? 'phone' : 'desktop'} shared colours and text contrast (minimum ${minimum.toFixed(2)}:1)`;
+    return `PASS: ${theme}/${phone ? 'phone' : 'desktop'} shared colours, text contrast (minimum ${minimum.toFixed(2)}:1) and control contrast (${indicatorContrast.toFixed(2)}:1)`;
   } finally {
     probe.remove();
   }

@@ -49,6 +49,7 @@ try {
         for (const theme of ['light', 'dark']) {
           await browser(['eval', `document.documentElement.dataset.theme = '${theme}'`]);
           await browser(['eval', 'Promise.all(document.getAnimations().map(animation => animation.finished.catch(() => {})))']);
+          await browser(['press', 'Tab']);
           console.log(await browser(['eval', '--stdin'], await readFile('tests/palette.browser.js', 'utf8')));
         }
       }
