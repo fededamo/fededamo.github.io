@@ -93,7 +93,7 @@ button:focus-visible { outline-offset: -6px; }
 .window-address span:last-child { color: var(--ink); }
 .window-content { background: var(--surface); padding: 32px; font-size: 16px; }
 .window-content p { margin: 0 0 18px; }
-.window-status { min-height: 25px; display: flex; justify-content: space-between; align-items: center; margin-top: 3px; padding-left: 8px; font-size: 11px; border: 1px solid; border-color: var(--edge-dark) var(--edge-light) var(--edge-light) var(--edge-dark); }
+.window-status { min-height: 25px; display: flex; justify-content: flex-end; align-items: center; margin-top: 3px; padding-left: 8px; font-size: 11px; border: 1px solid; border-color: var(--edge-dark) var(--edge-light) var(--edge-light) var(--edge-dark); }
 .resize-grip { display: none; }
 .welcome-art { display: none; }
 .welcome-eyeline { color: var(--muted); font-size: 14px; }
@@ -122,6 +122,7 @@ dd { margin: 0; color: var(--muted); }
 .document-preview { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; color: var(--muted); font-size: 14px; }
 .document-preview .pixel-icon { width: 72px; height: 72px; }
 .contact-list { margin: 24px 0 0; }
+.contact-list a { overflow-wrap: anywhere; text-underline-offset: 4px; }
 .taskbar { min-height: 54px; background: var(--chrome); border-top: 2px solid var(--edge-light); display: flex; gap: 7px; padding: 4px 7px; align-items: center; }
 .taskbar .pixel-icon { width: 24px; height: 24px; }
 .start-button { padding: 4px 8px; gap: 5px; font-size: 15px; min-height: 42px; }

@@ -56,7 +56,10 @@ class SiteTests(unittest.TestCase):
                     if "href" not in attrs:
                         continue
                     link = urlsplit(attrs["href"])
-                    self.assertFalse(link.scheme or link.netloc)
+                    if link.scheme:
+                        self.assertIn(link.scheme, ("https", "mailto"))
+                        continue
+                    self.assertFalse(link.netloc)
                     self.assertFalse(link.path.startswith("/"), "Keep links compatible with repository subpaths")
                     target = path.parent / link.path if link.path else path
                     if target.is_dir():
